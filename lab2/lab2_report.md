@@ -4,7 +4,7 @@ Course: [Introduction to distributed technologies](https://github.com/itmo-ict-f
 Year: 2023/2024
 Group: K4110с
 Author: Fofanov Maksim Gerbertovich
-Lab: Lab1
+Lab: Lab2
 Date of create: 28.10.2023
 Date of finished: 31.10.2023
 

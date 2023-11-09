@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  REACT_APP_USERNAME: "Fofanov"
+  REACT_APP_COMPANY_NAME: "ITMO"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-lab3
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-lab3
+  template:
+    metadata:
+      labels:
+        app: app-lab3
+    spec:
+      containers:
+        - name: app-lab3
+          image: ifilyaninitmo/itdt-contained-frontend:master
+          ports:
+            - containerPort: 3000
+              name: http
+          envFrom:
+            - configMapRef:
+                name: app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      protocol: TCP
+      name: http
+  selector:
+    app: app-lab3
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-lab3
+spec:
+  tls:
+    - hosts:
+        - fofanov-lab3.com
+      secretName: secret-tls
+  rules:
+    - host: fofanov-lab3.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-svc
+                port:
+                  name: http
