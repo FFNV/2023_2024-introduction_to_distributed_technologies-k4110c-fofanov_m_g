@@ -18,7 +18,6 @@ Date of finished: 05.11.2023
 
 ![img_28.png](img_28.png)
 
-вв
 
 ![img_29.png](img_29.png)
 
